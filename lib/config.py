@@ -25,40 +25,45 @@
 #
 ################################################################################
 
-class serconf:
-	def __init(self):
-		port_A = ""
-		baud_A = ""
-		bitcount_A = ""
-		parity_A = ""
-		stopbit_A = ""
-	
-		port_B = ""
-		baud_B = ""
-		bitcount_B = ""
-		parity_B = ""
-		stopbit_B = ""
+################################################################################
+# Import Libraries
 
-def config(sc):
-	sc.port_A = config['SERIAL-A']['port']
-	sc.baud_A = config['SERIAL-A']['baudrate']
-	sc.bitcount_A = config['SERIAL-A']['bitcount']
-	sc.parity_A = config['SERIAL-A']['parity']
-	sc.stopbit_A = config['SERIAL-A']['stopbit']
+import array
+import binascii
+import configparser
+import datetime
+import io
+import logging
+import os
+import serial
+import sys
+import time
+
+# Functions
+################################################################################
+
+# function:	read(message)
+# 	-
+# 	Input:	-
+#	Output:	-
+def read(arrcfg):
+	# create new Parser and read file
+	config = configparser.ConfigParser()
+	config.read('pye-motion.cfg')
 	
-	sc.port_B = config['SERIAL-B']['port']
-	sc.baud_B = config['SERIAL-B']['baudrate']
-	sc.bitcount_B = config['SERIAL-B']['bitcount']
-	sc.parity_B = config['SERIAL-B']['parity']
-	sc.stopbit_B = config['SERIAL-B']['stopbit']
-	
-def open_A(ser_A, sc):
-	ser_A = serial.Serial(sc.port_A, baudrate=sc.baud_A, timeout=1)  # open first serial port
-	print ("Serial-A sucessfully openend: " + ser_A.portstr)
-	return ser_A
-	
-def open_B(ser_B, sc):
-	ser_B = serial.Serial(sc.port_B, baudrate=sc.baud_B, timeout=1)  # open first serial port
-	print ("Serial-B sucessfully openend: " + ser_B.portstr)
-	return ser_B
-	
+	# Save values from file into given array
+	arrcfg.usagemode = config['MAIN']['usagemode']
+	arrcfg.hwconfig = config['MAIN']['hwconfig']
+
+	arrcfg.port_A = config['SERIAL-A']['port']
+	arrcfg.baud_A = config['SERIAL-A']['baudrate']
+	arrcfg.bitcount_A = config['SERIAL-A']['bitcount']
+	arrcfg.parity_A = config['SERIAL-A']['parity']
+	arrcfg.stopbit_A = config['SERIAL-A']['stopbit']
+
+	arrcfg.port_B = config['SERIAL-B']['port']
+	arrcfg.baud_B = config['SERIAL-B']['baudrate']
+	arrcfg.bitcount_B = config['SERIAL-B']['bitcount']
+	arrcfg.parity_B = config['SERIAL-B']['parity']
+	arrcfg.stopbit_B = config['SERIAL-B']['stopbit']
+	return
