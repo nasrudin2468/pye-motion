@@ -25,9 +25,26 @@
 #
 ################################################################################
 
+################################################################################
+# Import Libraries
+
+import array
+import binascii
+import configparser
+import datetime
+import io
+import logging
+import os
+import serial
+import sys
+import time
 
 # Functions
 ################################################################################
 
-
-	
+# function:	cls()
+# 	clear os terminal  screen
+# 	Input:	-
+#	Output:	-
+def cls():
+	os.system('cls' if os.name=='nt' else 'clear')

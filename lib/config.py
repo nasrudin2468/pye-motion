@@ -44,15 +44,14 @@ import time
 
 # function:	read(message)
 # 	-
-# 	Input:	-
-#	Output:	-
+# 	Input:	name of array
+#	Output:	modifies input
 def read(arrcfg):
 	# create new Parser and read file
 	config = configparser.ConfigParser()
 	config.read('pye-motion.cfg')
 	
 	# Save values from file into given array
-	arrcfg.usagemode = config['MAIN']['usagemode']
 	arrcfg.hwconfig = config['MAIN']['hwconfig']
 
 	arrcfg.port_A = config['SERIAL-A']['port']
@@ -67,3 +66,4 @@ def read(arrcfg):
 	arrcfg.parity_B = config['SERIAL-B']['parity']
 	arrcfg.stopbit_B = config['SERIAL-B']['stopbit']
 	return
+	

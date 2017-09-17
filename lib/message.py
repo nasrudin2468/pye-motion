@@ -120,6 +120,118 @@ def parse(message, bhdata):
 def serialSend(message, device):
 	
 	#send
-	ser.write(message.rawbuffer)
+	device.write(message.rawbuffer)
 	
 	return
+
+# serialOpen(configarray)
+# Open Serial Adapters
+# 	Input:
+# 	Output:
+def serialOpen(configarray):
+	if (cfg.hwconfig in ("usb-serial-a", "usb-serial-full")):
+		print()
+		print('Parameters Serial-A (Controller):')
+		print(' port = '+ cfg.port_A)
+		print(' baudrate = '+ cfg.baud_A)
+		print(' busconfig = '+cfg.bitcount_A+cfg.parity_A+cfg.stopbit_A)
+		print()
+		print ("Open Serial-A adapter...")
+		bhController = serial.Serial(cfg.port_A, baudrate=cfg.baud_A, timeout=1)  # open first serial port
+		print ("Success! Port: " + bhController.portstr)
+
+
+	if (cfg.hwconfig in ("usb-serial-b", "usb-serial-full")):  
+		print()
+		print('Parameters Serial-B (Display):')
+		print(' port = '+ cfg.port_B)
+		print(' baudrate = '+ cfg.baud_B)
+		print(' busconfig = '+cfg.bitcount_B+cfg.parity_B+cfg.stopbit_B)
+		print()
+		bhDisplay = serial.Serial(cfg.port_B, baudrate=cfg.baud_B, timeout=1)  # open second serial port
+		print ("Success! Port: " + bhDisplay.portstr)
+	
+	return
+
+
+# serialClose(configarray)
+# Close Serial Adapters
+# 	Input:
+# 	Output:
+def serialClose(configarray):
+	if (cfg.hwconfig in ("usb-serial-a", "usb-serial-full")):
+		bhController.close()
+	
+	if (cfg.hwconfig in ("usb-serial-b", "usb-serial-full")):  	
+		bhDisplay.close()
+	
+	return
+
+# serialReceive(message, device)
+# Receive Data via USB-serial adapter from a  given device / bus direction via USB-serial adapter
+# 	Input:	raw message string, device / bus direction
+# 	Output:	writes into given raw message string 
+def serialReceive(message, device):
+	while True:
+		temp = 0
+		temp = int.from_bytes(device.read(),byteorder='little')
+		
+		if  temp != 0:
+			# something was transmitted. write into objbuffer
+			message.rawbuffer[message.slength] = temp
+			message.slength+=1
+			
+			
+		if temp == 0:
+			# nothing in Fifo, wait for next func call
+			return
+			
+		if temp == 13:
+			# decode, set readbit, finish
+			message.rawbuffer[message.slength]=0
+			
+			# check message for basic validity
+			#if message.slength <= 8:
+				#print ("bad message.")
+				#return
+			
+			i=0
+			
+			#extract header and payload
+			for i in range(3):
+				message.header+=chr(message.rawbuffer[i])
+			
+			for i in range((message.slength)-6):
+				message.payload+=chr(message.rawbuffer[i+3])
+			
+			#extract ecb	
+			for j in range(16):
+				if MASCII[j] == message.rawbuffer[message.slength-3]:
+					message.ecb = 16*j
+					#print (message.ecb)
+			for j in range(16):
+				if MASCII[j] == message.rawbuffer[message.slength-2]:
+					message.ecb += j
+					#print (message.ecb)
+				
+			#calculate ecb
+			chkecb=0
+			for i in range (message.slength-4):
+				chkecb ^= message.rawbuffer[i+1]
+			#message.ecb = 16*message.rawbuffer[message.slength-3]
+			#message.ecb = message.rawbuffer[message.slength-2]
+			#message.ecb=binascii.b2a_hex(ecstr)
+			#message.ecb=binascii.hexlify(b, ecstr)
+				
+			message.readable=1
+			#print("Rawbuffer: ", message.rawbuffer)
+			#print("Bufferindex: ", message.slength)
+			#print("Header: ", message.header)
+			#print("Payload: ", message.payload)
+			#print("ECB Buffer: ", message.ecb)
+			#print("ECB calculated: ", chkecb)
+			return
+	return
+	
+	
+		
