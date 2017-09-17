@@ -77,6 +77,48 @@ import lib.osys	as osy
 ################################################################################
 # Functions
 
+# function:	help()
+# 	
+# 	Input:	-
+#	Output:	-
+def help():
+	print("Usage:")
+	print()
+	print("pye-motion [arg1] [arg2]") 
+	print("	Starting pye-motion without any gives you the program version. It") 
+	print("	also checks for python lib depencies and suggests using -help to get") 
+	print("	additional information about usage")
+	print()
+	print("pye-motion -help")
+	print("	lists all available command arguments and how to use them")
+	print()		
+	print("pye-motion -install")
+	print("	installs lib dependencies via python pip")
+	print()		
+	print("pye-motion -listen")
+	print("	Passive listen modus. shows transfered raw messages as well as a")
+	print("	table of all scaled livemodus values")
+	print()
+	print("pye-motion -plisten")
+	print("	read all parameter values from memory and show them in a table")
+	print()		
+	print("pye-motion -pquery")
+	print("	read, modify and save single parameters. WARNING: highly")
+	print("	experimental! Might cause serious hardware damage!")
+	print()
+	print("pye-motion -speedlimit")
+	print("	shows if 27.5 km/h software speed limit is activated")
+	print()		
+	print("pye-motion -speedlimit off")
+	print("	deactivates software speed limit - allowing the bike to go faster")
+	print("	than 27.5 km/h")
+	print()		
+	print("pye-motion -speedlimit on")
+	print("	activate software speed limit to 27,5 km/h by calculating a valid")
+	print("	value for P08 based on current wheel diameter and magnet count")
+	print()
+
+
 # function:	listen()
 # 	
 # 	Input:	-

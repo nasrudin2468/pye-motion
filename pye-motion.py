@@ -111,7 +111,7 @@ if len(sys.argv) == 1:
 	
 else:
 	if (sys.argv[1] in ("-help")):
-		print("not implemented.")
+		arg.help()
 		exit()
 		
 	elif (sys.argv[1] in ( "-install")):
