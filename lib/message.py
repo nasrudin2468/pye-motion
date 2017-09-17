@@ -26,8 +26,35 @@
 ################################################################################
 
 
-# Functions
 ################################################################################
+# Import Libraries
+
+import array
+import binascii
+import configparser
+import datetime
+import io
+import logging
+import os
+import serial
+import sys
+import time
+
+
+################################################################################
+# Constants
+
+
+################################################################################
+# classes / structs
+
+
+################################################################################
+# Import external functions
+
+
+################################################################################
+# Functions
 
 # function:	addchecksum(message)
 # 	calculate and add checksum value to a message
@@ -128,7 +155,7 @@ def serialSend(message, device):
 # Open Serial Adapters
 # 	Input:
 # 	Output:
-def serialOpen(configarray):
+def serialOpen(cfg):
 	if (cfg.hwconfig in ("usb-serial-a", "usb-serial-full")):
 		print()
 		print('Parameters Serial-A (Controller):')
@@ -137,8 +164,8 @@ def serialOpen(configarray):
 		print(' busconfig = '+cfg.bitcount_A+cfg.parity_A+cfg.stopbit_A)
 		print()
 		print ("Open Serial-A adapter...")
-		bhController = serial.Serial(cfg.port_A, baudrate=cfg.baud_A, timeout=1)  # open first serial port
-		print ("Success! Port: " + bhController.portstr)
+		cfg.bhController = serial.Serial(cfg.port_A, baudrate=cfg.baud_A, timeout=1)  # open first serial port
+		print ("Success! Port: " + cfg.bhController.portstr)
 
 
 	if (cfg.hwconfig in ("usb-serial-b", "usb-serial-full")):  
@@ -148,8 +175,8 @@ def serialOpen(configarray):
 		print(' baudrate = '+ cfg.baud_B)
 		print(' busconfig = '+cfg.bitcount_B+cfg.parity_B+cfg.stopbit_B)
 		print()
-		bhDisplay = serial.Serial(cfg.port_B, baudrate=cfg.baud_B, timeout=1)  # open second serial port
-		print ("Success! Port: " + bhDisplay.portstr)
+		cfg.bhDisplay = serial.Serial(cfg.port_B, baudrate=cfg.baud_B, timeout=1)  # open second serial port
+		print ("Success! Port: " + cfg.bhDisplay.portstr)
 	
 	return
 
@@ -158,12 +185,12 @@ def serialOpen(configarray):
 # Close Serial Adapters
 # 	Input:
 # 	Output:
-def serialClose(configarray):
+def serialClose(cfg):
 	if (cfg.hwconfig in ("usb-serial-a", "usb-serial-full")):
-		bhController.close()
+		cfg.bhController.close()
 	
 	if (cfg.hwconfig in ("usb-serial-b", "usb-serial-full")):  	
-		bhDisplay.close()
+		cfg.bhDisplay.close()
 	
 	return
 
