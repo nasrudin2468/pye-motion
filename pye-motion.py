@@ -44,6 +44,8 @@ import time
 
 ################################################################################
 # Constants
+BUILDVERSION 	= "V0.9.0"
+BUILDDATE 		= "2017-10-21"
 
 
 ################################################################################
@@ -107,6 +109,8 @@ signal.signal(signal.SIGINT, signal_handler)
 cfg.read(cfg)
 
 if len(sys.argv) == 1:
+	print('\npye-motion ' + BUILDVERSION + ' - ' + BUILDDATE)
+	# TODO: implement dependency check
 	print('No command line argument given. type pye-motion - help for valid arguments')
 	
 else:
