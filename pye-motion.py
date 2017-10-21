@@ -49,7 +49,7 @@ except ImportError:
 
 ################################################################################
 # Constants
-BUILDVERSION 	= "V0.9.1"
+BUILDVERSION 	= "V0.9.2"
 BUILDDATE 		= "2017-10-21"
 
 
