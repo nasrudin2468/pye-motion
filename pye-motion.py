@@ -36,15 +36,20 @@ import datetime
 import io
 import logging
 import os
-import serial
 import signal
 import sys
 import time
 
+try:
+	import serial
+except ImportError:
+	pass
+	ModulSerialMissing = True
+
 
 ################################################################################
 # Constants
-BUILDVERSION 	= "V0.9.0"
+BUILDVERSION 	= "V0.9.1"
 BUILDDATE 		= "2017-10-21"
 
 
@@ -110,16 +115,20 @@ cfg.read(cfg)
 
 if len(sys.argv) == 1:
 	print('\npye-motion ' + BUILDVERSION + ' - ' + BUILDDATE)
-	# TODO: implement dependency check
+	
+	# check for modules which might not be part of the standard python 3 installation
+	if 'ModulSerialMissing' in locals():
+		print('Missing Module pyserial. Install by typing pye-motion -install')
+		
 	print('No command line argument given. type pye-motion - help for valid arguments')
 	
-else:
+if len(sys.argv) != 1:
 	if (sys.argv[1] in ("-help")):
 		arg.help()
 		exit()
 		
 	elif (sys.argv[1] in ( "-install")):
-		print("not implemented.")
+		arg.install()
 		exit()
 		
 	elif (sys.argv[1] in ( "-listen")):

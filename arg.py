@@ -36,9 +36,14 @@ import datetime
 import io
 import logging
 import os
-import serial
+import pip
 import sys
 import time
+
+try:
+	import serial
+except ImportError:
+	pass
 
 
 ################################################################################
@@ -117,6 +122,19 @@ def help():
 	print("	activate software speed limit to 27,5 km/h by calculating a valid")
 	print("	value for P08 based on current wheel diameter and magnet count")
 	print()
+
+
+################################################################################
+# Functions
+
+# function:	install()
+# 	
+# 	Input:	-
+#	Output:	-
+def install():
+	print("Installing pyserial via pip. Requires internet connection! Might need admin / root...")
+	pip.main(['install', 'serial'])
+
 
 
 # function:	listen()
