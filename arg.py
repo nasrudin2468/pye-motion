@@ -188,19 +188,6 @@ def listen(mondata):
 def plisten(mondata):
 	frame = 0
 	pindex=0
-	osy.cls()
-	print("-------------------------------------------------------------------------------")
-	print()
-	print("pye-motion - Parameter Listen modus")
-	print()
-	print("-------------------------------------------------------------------------------")
-	print()
-	print()
-	print()
-	print()
-	print("This modus requires to set the LCD into settings mode. ")
-	print("Hold + and - simultaneously to enter settings . ")
-	rawtx = input("press enter to continue")
 	
 	while 1:
 		if mondata.viewmode==0:
@@ -273,20 +260,6 @@ def plisten(mondata):
 #	Output:	-
 def pquery(mondata):
 	frame = 0
-	osy.cls()
-	print("-------------------------------------------------------------------------------")
-	print()
-	print("pye-motion - query modus")
-	print("WARNING: highly experimental - might cause serious hardware damage!")
-	print()
-	print("-------------------------------------------------------------------------------")
-	print()
-	print()
-	print()
-	print()
-	print("This modus requires to set the LCD into settings mode. ")
-	print("Hold + and - simultaneously to enter settings. ")
-	rawtx = input("press enter to continue")
 	
 	while 1:
 		osy.cls()

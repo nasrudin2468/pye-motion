@@ -49,7 +49,7 @@ except ImportError:
 
 ################################################################################
 # Constants
-BUILDVERSION 	= "V0.9.2"
+BUILDVERSION 	= "V0.9.3"
 BUILDDATE 		= "2017-10-21"
 
 
@@ -135,11 +135,17 @@ if len(sys.argv) != 1:
 		msg.serialOpen(cfg)
 		arg.listen(monitordata)
 	
-	elif (sys.argv[1] in ( "-plisten")):	
+	elif (sys.argv[1] in ( "-plisten")):
+		print("warning: This modus requires to set the LCD into settings mode. ")
+		print("Hold + and - simultaneously to enter settings. ")
+		rawtx = input("press enter to continue")
 		msg.serialOpen(cfg)
 		arg.plisten(monitordata)
 	
 	elif (sys.argv[1] in ( "-pquery")):	
+		print("warning: This modus requires to set the LCD into settings mode. ")
+		print("Hold + and - simultaneously to enter settings. ")
+		rawtx = input("press enter to continue")
 		msg.serialOpen(cfg)
 		arg.pquery(monitordata)
 		
