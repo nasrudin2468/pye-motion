@@ -136,21 +136,28 @@ if len(sys.argv) != 1:
 		arg.listen(monitordata)
 	
 	elif (sys.argv[1] in ( "-plisten")):
-		print("warning: This modus requires to set the LCD into settings mode. ")
+		print("warning: This modus requires to set the LCD into settings mode first. ")
 		print("Hold + and - simultaneously to enter settings. ")
 		rawtx = input("press enter to continue")
 		msg.serialOpen(cfg)
 		arg.plisten(monitordata)
 	
 	elif (sys.argv[1] in ( "-pquery")):	
-		print("warning: This modus requires to set the LCD into settings mode. ")
+		print("warning: This modus requires to set the LCD into settings mode first. ")
 		print("Hold + and - simultaneously to enter settings. ")
 		rawtx = input("press enter to continue")
 		msg.serialOpen(cfg)
 		arg.pquery(monitordata)
 		
 	elif (sys.argv[1] in ( "-speedlimit")):
-		print("not implemented.")
+		print("warning: This modus requires to set the LCD into settings mode first. ")
+		print("Hold + and - simultaneously to enter settings. ")
+		rawtx = input("press enter to continue")
+		msg.serialOpen(cfg)
+		if len(sys.argv) == 3:
+			arg.speedlimit(monitordata, sys.argv[2])
+		else:
+			arg.speedlimit(monitordata, 0)
 		exit()
 		
 	else: 

@@ -305,3 +305,154 @@ def pquery(mondata):
 		print("RX answer: ", rawrx.payload)
 		print()
 		rawtx = input("press enter to continue")
+
+def speedlimit(mondata, arg2):
+	osy.cls()
+	rawtx = None
+	rawtx = smessage()
+	rawrx = None
+	rawrx = smessage()
+	print("-------------------------------------------------------------------------------")
+	print()
+	print("pye-motion - speed limit")
+	print()
+	print("-------------------------------------------------------------------------------")
+	print()
+	print()
+	print()
+	print("check current limit setting (value of parameter P08):")
+	
+	# get P08 
+	rawtx.payload="P08"
+	msg.addframe(rawtx)
+	msg.addchecksum(rawtx)
+	msg.serialSend(rawtx, cfg.bhController)
+	# receive via Serial B
+	while rawrx.readable == 0:
+		msg.serialReceive(rawrx, cfg.bhController)
+		
+	finalrx=""
+	for i in range(rawrx.slength):
+		finalrx+=chr(rawrx.rawbuffer[i])
+	
+
+	print("RX answer: ", rawrx.payload)
+	if (rawrx.payload == "P08000"):
+		print(" - Bike is (allready) derestricted!")
+	else:
+		print(" - Bike is restricted. Please write down(!) the value above for restoring")
+		print("   original settings later.")
+	print()	
+	
+	if (arg2 == "on"):
+		rawtx = None
+		rawtx = smessage()
+		rawrx = None
+		rawrx = smessage()
+		# change P08 to entered (/original) value
+		rawtx.payload = input("Enter original value (or stop process by holding CTRL + C): ")
+		rawtx.payload = "S08"+rawtx.payload
+		msg.addframe(rawtx)
+		msg.addchecksum(rawtx)
+		msg.serialSend(rawtx, cfg.bhController)
+		# receive via Serial B
+		while rawrx.readable == 0:
+			msg.serialReceive(rawrx, cfg.bhController)
+		
+		finalrx=""
+		for i in range(rawrx.slength):
+			finalrx+=chr(rawrx.rawbuffer[i])
+		
+		# print result <- change P08 to entered (/original) value 
+		print("RX answer: ", rawrx.payload)
+		if (rawrx.payload == "OK"):
+			print("parameters sucessfully saved.")
+		else:
+			print("ERROR: Could not save into permanent memory ")
+			quit()
+		
+		rawtx = None
+		rawtx = smessage()
+		rawrx = None
+		rawrx = smessage()
+		print("Save changed settings into permanent memory...")
+		# Save settings into permanent memory
+		rawtx.payload="F00"
+		msg.addframe(rawtx)
+		msg.addchecksum(rawtx)
+		msg.serialSend(rawtx, cfg.bhController)
+		# receive via Serial B
+		while rawrx.readable == 0:
+			msg.serialReceive(rawrx, cfg.bhController)
+		
+		finalrx=""
+		for i in range(rawrx.slength):
+			finalrx+=chr(rawrx.rawbuffer[i])
+		
+		# print result <- Save settings into permanent memory
+		print("RX answer: ", rawrx.payload)
+		if (rawrx.payload == "OK"):
+			print("parameters sucessfully saved.")
+		else:
+			print("ERROR: Could not save into permanent memory ")
+			quit()
+		
+		
+	elif (arg2 == "off"):
+		rawtx = None
+		rawtx = smessage()
+		rawrx = None
+		rawrx = smessage()
+		print("De-restricting Bike now by setting P08 to 000...")
+		# Set P08 to 000
+		rawtx.payload="S08000"
+		msg.addframe(rawtx)
+		msg.addchecksum(rawtx)
+		msg.serialSend(rawtx, cfg.bhController)
+		# receive via Serial B
+		while rawrx.readable == 0:
+			msg.serialReceive(rawrx, cfg.bhController)
+		
+		finalrx=""
+		for i in range(rawrx.slength):
+			finalrx+=chr(rawrx.rawbuffer[i])
+		
+		# print result <- Set P08 to 000
+		print("RX answer: ", rawrx.payload)
+		if (rawrx.payload == "OK"):
+			print(" - Derestriction sucessfull!")
+		else:
+			print(" - ERROR: parameter modification failed. ")
+			quit()
+		print()
+		
+		rawtx = None
+		rawtx = smessage()
+		rawrx = None
+		rawrx = smessage()
+		print("Save changed settings into permanent memory...")
+		# Save settings into permanent memory
+		rawtx.payload="F00"
+		msg.addframe(rawtx)
+		msg.addchecksum(rawtx)
+		msg.serialSend(rawtx, cfg.bhController)
+		# receive via Serial B
+		while rawrx.readable == 0:
+			msg.serialReceive(rawrx, cfg.bhController)
+		
+		finalrx=""
+		for i in range(rawrx.slength):
+			finalrx+=chr(rawrx.rawbuffer[i])
+		
+		# print result <- Save settings into permanent memory
+		print("RX answer: ", rawrx.payload)
+		if (rawrx.payload == "OK"):
+			print(" - parameters sucessfully saved.")
+		else:
+			print(" - ERROR: Could not save into permanent memory ")
+			quit()
+
+		
+		
+		
+	
