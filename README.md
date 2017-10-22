@@ -68,13 +68,15 @@ pye-motion -pquery
 			experimental! Might cause serious hardware damage!
 
 pye-motion -speedlimit
-			shows if 27.5 km/h software speed limit is activated
-			
+			shows if 27.5 km/h software speed limit is activated. 
+			CAREFUL: please note down the shown original P08 value before 
+			delimiting!
+
 pye-motion -speedlimit off
 			deactivates software speed limit - allowing the bike to go faster
-			than 27.5 km/h
+			than 27.5 km/h. CAREFUL: please note down the original P08 value 
+			before delimiting!
 			
 pye-motion -speedlimit on
-			activate software speed limit to 27,5 km/h by calculating a valid
-			value for P08 based on current wheel diameter and magnet count
-
+			activate software speed limit to 27,5 km/h by changing P08 to given 
+			value.
