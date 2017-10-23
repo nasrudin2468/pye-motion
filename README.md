@@ -13,14 +13,13 @@ calcuation and transfer of checksum values.
 --------------------------------------------------------------------------------
 2. Installation
 
-- download and install Python 3.6.X (https://www.python.org/downloads/)
-- download and install pyserial module:
-	py -m pip download pyserial
-	py -m pip install pyserial
-- install driver for your serial-usb adapter(s) and plug them in
+- Download and install Python 3.6.X (https://www.python.org/downloads/)
+- Download and install lib dependencies (navigate to the pye-motion folder 
+  first): pye-motion.py -install
+- Install driver for your serial-usb adapter(s) and plug them in
 	
 Windows:
-- open up device manager and note the com-port(s) your serial-usb adapter(s) use
+- Open up device manager and note the com-port(s) your serial-usb adapter(s) use
 
 Linux: 
 - Open terminal and check available ports without adapter connected: 
@@ -31,7 +30,7 @@ Linux:
 MAC:
 - I honestly have no idea. Please contact me if you know
 
-- go to pye-motion directory and open up py-motion.cfg with a texteditor and
+- Go to pye-motion directory and open up py-motion.cfg with a texteditor and
   change the COM-Port Value of [SERIAL-A]/Port (and [SERIAL-B]/Port) according
   to the values you noted before. Don't forget to save.
 
@@ -41,7 +40,7 @@ MAC:
 
 pye-motion is a command line tool. To use it open up your OS-terminal and 
 navigate to the pye-motion folder. 
-start the tool by entering pye-motion.py with or without arguments. 
+Start the tool by entering pye-motion.py with or without arguments. 
 Stop the tool by pressing CTRL-C.
 
 
