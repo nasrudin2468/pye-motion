@@ -120,7 +120,7 @@ if len(sys.argv) == 1:
 	if 'ModulSerialMissing' in locals():
 		print('Missing Module pyserial. Install by typing pye-motion -install')
 		
-	print('No command line argument given. type pye-motion - help for valid arguments')
+	print('No command line argument given. type pye-motion -help for valid arguments')
 	
 if len(sys.argv) != 1:
 	if (sys.argv[1] in ("-help")):
