@@ -6,8 +6,8 @@
 pye-motion is a cross-platform python tool for BH EVO E-Bike drivetrains. It 
 simplifies reading messages between controller and display by parsing the data 
 and displaying them in a more human readable way.
-while changing paramters or sending manual messages pye-motion takes care about 
-calcuation and transfer of checksum values.
+While changing parameters or sending manual messages pye-motion takes care about 
+calculation and transfer of checksum values.
 
 
 --------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ calcuation and transfer of checksum values.
 - Install driver for your serial-usb adapter(s) and plug them in
 	
 Windows:
-- Open up device manager and note the com-port(s) your serial-usb adapter(s) use
+- Open up device manager and note the com-port(s) your serial-usb adapter(s) uses
 
 Linux: 
 - Open terminal and check available ports without adapter connected: 
@@ -28,7 +28,7 @@ Linux:
   Sample: /dev/TTyS2
   
 MAC:
-- I honestly have no idea. Please contact me if you know
+- I honestly have no idea. Please contact me if you know.
 
 - Go to pye-motion directory and open up py-motion.cfg with a texteditor and
   change the COM-Port Value of [SERIAL-A]/Port (and [SERIAL-B]/Port) according
@@ -56,7 +56,7 @@ pye-motion -install
 			installs lib dependencies via python pip
 			
 pye-motion -listen
-			Passive listen modus. shows transfered raw messages as well as a 
+			Passive listen modus. Shows transfered raw messages as well as a 
 			table of all scaled livemodus values.
 
 pye-motion -plisten
